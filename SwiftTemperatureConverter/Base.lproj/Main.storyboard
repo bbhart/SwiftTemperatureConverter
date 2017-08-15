@@ -28,6 +28,10 @@
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDW-e9-EOH">
                                 <rect key="frame" x="27.5" y="423" width="320" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="OkQ-gy-R91"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="UCZ-ZX-baT"/>
+                                </connections>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0y-h4-f0F">
                                 <rect key="frame" x="138.5" y="89" width="98.5" height="50.5"/>
@@ -36,6 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Np1-oL-Bdn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Dsx-d3-cQg"/>
                             <constraint firstItem="f0y-h4-f0F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HoY-PJ-iSa"/>
@@ -45,6 +50,10 @@
                             <constraint firstItem="Np1-oL-Bdn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kVk-c9-R2E"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="picker" destination="LDW-e9-EOH" id="dBk-X1-Psq"/>
+                        <outlet property="temperatureLabel" destination="f0y-h4-f0F" id="0sH-zy-BBu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
