@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    enum mode {
+        case CtoF, FtoC
+    }
+    
     // Min and max to seed the picker with
     let minTemp = -40
     let maxTemp = 40
@@ -46,17 +50,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         if component == 0 {
             return pickerData.count
         } else {
-            return 1
+            return 2
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        var s = ""
         if component == 0 {
-            return String(pickerData[row])
+            s = String(pickerData[row])
         } else {
-            return "°C"
+            if component == 1 {
+                if row == 0 { s = "°C" }
+                if row == 1 { s = "°F" }
+            }
         }
+        
+        return s
     }
+    
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         updateLabel()
@@ -69,10 +80,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     internal func CtoF(tempToConvert: Int) -> Int {
         return Int(Double(tempToConvert) * 1.8 + 32)
     }
+  
+    internal func FtoC(tempToConvert: Int) -> Int {
+        return Int(Double(tempToConvert) / 1.8 - 32)
+    }
     
     internal func updateLabel() {
-        let C = Int(pickerData[picker.selectedRow(inComponent: 0)])
-        temperatureLabel.text = String(CtoF(tempToConvert: C)) + "°F"
+        let selected = Int(pickerData[picker.selectedRow(inComponent: 0)])
+        temperatureLabel.text = String(CtoF(tempToConvert: selected)) + "°F"
     }
 
 
