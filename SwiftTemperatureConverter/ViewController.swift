@@ -14,9 +14,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         case CtoF, FtoC
     }
     
+    let c_seedrange = Array(-40...40)
+    let f_seedrange = Array(0...120)
+    
+    var currentMode: mode = mode.CtoF
+    
     // Min and max to seed the picker with
-    let minTemp = -40
-    let maxTemp = 40
+    
     var pickerData = [Int]()
     
     
@@ -30,7 +34,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.picker.delegate = self
         self.picker.dataSource = self
         
-        pickerData = Array(minTemp...maxTemp)
+        // Start the app doing C to F conversion
+        pickerData = c_seedrange
+        
         setTemperatureMiddle()
         updateLabel()
         
@@ -70,7 +76,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        updateLabel()
+        if component == 0 {
+            // They changed the temperature
+            updateLabel()
+        }
+        
+        if component == 1 {
+            // They switched from C to F or vice versa
+            if row == 0 {
+                // Set C
+                currentMode = mode.CtoF
+                pickerData = c_seedrange
+            } else if row == 1 {
+                // Set F
+                currentMode = mode.FtoC
+                pickerData = f_seedrange
+            }
+            updateLabel()
+        }
     }
     
     internal func setTemperatureMiddle() {
@@ -82,15 +105,17 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
   
     internal func FtoC(tempToConvert: Int) -> Int {
-        return Int(Double(tempToConvert) / 1.8 - 32)
+        return Int((Double(tempToConvert) - 32 ) / 1.8)
     }
     
     internal func updateLabel() {
         let selected = Int(pickerData[picker.selectedRow(inComponent: 0)])
-        temperatureLabel.text = String(CtoF(tempToConvert: selected)) + "°F"
+        if currentMode == mode.CtoF {
+            temperatureLabel.text = String(CtoF(tempToConvert: selected)) + "°F"
+        } else {
+            temperatureLabel.text = String(FtoC(tempToConvert: selected)) + "°C"
+        }
     }
-
-
 }
 
 
